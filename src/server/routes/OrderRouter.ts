@@ -20,6 +20,9 @@ export class OrderRouter {
                     return c.json({ orderId });
                 } catch(e) {
                     console.log(e);
+
+                    if(e instanceof Error)
+                        return c.json({ error: e.message ?? 'Unknown error' }, 500);
                 }
             }
         );
@@ -35,6 +38,9 @@ export class OrderRouter {
                     return c.json({ payed });
                 } catch(e) {
                     console.log(e);
+
+                    if(e instanceof Error)
+                        return c.json({ error: e.message ?? 'Unknown error' }, 500);
                 }
             }
         );
@@ -48,6 +54,9 @@ export class OrderRouter {
                     return c.json({ revenue });
                 } catch(e) {
                     console.log(e);
+                    
+                    if(e instanceof Error)
+                        return c.json({ error: e.message ?? 'Unknown error' }, 500);
                 }
             }
         );

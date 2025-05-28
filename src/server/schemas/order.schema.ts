@@ -8,5 +8,9 @@ export const createOrderBodySchema = z.object({
 });
 
 export const payOrderParamSchema = z.object({
-    id: z.number().min(1)
+    id: z.preprocess(val => {
+        if(typeof val === 'string') return Number(val);
+        
+        return val;
+    }, z.number().min(1))
 });

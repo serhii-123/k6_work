@@ -35,25 +35,30 @@ class OrderModel {
             .values(insertObj)
             .returning({ insertedId: orders.id });
         const id: number = res[0].insertedId;
-        
+
+        const row = await this.db
+            .select({ id: orders.id, status: orders.status })
+            .from(orders)
+            .where(eq(orders.id, id));
+
         return id;
     }
 
     async payOrder(id: number): Promise<boolean> {
         const res = await this.db
-            .select({ status: orders.status })
+            .select({ id: orders.id, status: orders.status })
             .from(orders)
             .where(eq(orders.id, id));
 
         if(res.length === 0)
             throw new Error('OrderNotFount: there\'s no row with the given id');
-
         if(res[0].status !== 'NEW')
             throw new Error('InvalidState: the order must have the "NEW" status');
 
         await this.db
             .update(orders)
-            .set({ status: 'PAID' });
+            .set({ status: 'PAID' })
+            .where(eq(orders.id, id));
 
         return true;
     }
