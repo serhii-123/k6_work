@@ -1,6 +1,7 @@
 #mine
 
 src/server/db/db_dir
+report.json
 
 # Logs
 logs

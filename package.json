@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "server": "npx tsx ./src/server/index.ts",
-    "test": "k6 run ./src/test/load.test.ts"
+    "test": "k6 run ./src/test/load.test.ts --out json=report.json"
   },
   "keywords": [],
   "author": "",
