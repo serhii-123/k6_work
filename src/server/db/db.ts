@@ -6,7 +6,7 @@ let db: ReturnType<typeof drizzle>
 export async function initDb() {
     const client = new PGlite('./src/server/db/db_dir');
     
-    db = drizzle(client, { logger: true });
+    db = drizzle(client);
 
     await db.execute(`
         CREATE TABLE IF NOT EXISTS orders (
