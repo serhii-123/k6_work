@@ -1,3 +1,7 @@
+#mine
+
+src/server/db/db_dir
+
 # Logs
 logs
 *.log

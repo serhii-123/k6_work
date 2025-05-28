@@ -1,15 +1,12 @@
 import { eq, InferInsertModel, sql } from "drizzle-orm";
-import { NodePgDatabase } from "drizzle-orm/node-postgres";
+import type { db } from '../db/db';
 import orders from "../tables/orders";
 
+type DB = typeof db;
 type NewOrder = InferInsertModel<typeof orders>;
 
 class OrderModel {
-    db!: NodePgDatabase;
-
-    constructor(db: NodePgDatabase) {
-        this.db = db;
-    }
+    constructor(private db: DB) {}
 
     async createOrder(
         email: string,
@@ -67,8 +64,8 @@ class OrderModel {
                 total: sql`COALESCE(SUM(${orders.unit_price} * ${orders.qty}), 0)`
                     .as('total')
             },).from(orders);
-        const total: number =   Number(result[0].total); //as unknown as number;
-        
+        const total: number = Number(result[0].total);
+
         return total;
     }
 }
