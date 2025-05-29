@@ -19,7 +19,7 @@ jobs:
         run: |
           npm run server
           echo "Waiting for server to be ready..."
-          until curl -s http://localhost:3000/; do sleep 1; done
+          until curl -s http://localhost:3000/api/revenue; do sleep 1; done
         env:
           NODE_ENV: test
         
