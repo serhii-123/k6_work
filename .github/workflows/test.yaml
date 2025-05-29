@@ -1,0 +1,30 @@
+name: Test
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/checkout@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Start server
+        run: |
+          npm run server
+          echo "Waiting for server to be ready..."
+          until curl -s http://localhost:3000/; do sleep 1; done
+        env:
+          NODE_ENV: test
+        
+      - name: Set up k6
+        uses: grafana/setup-k6@0.3.0 
+
+      - name: Run k6 tests
+        run: npm run test
