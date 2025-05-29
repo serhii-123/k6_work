@@ -24,7 +24,7 @@ jobs:
           NODE_ENV: test
         
       - name: Set up k6
-        uses: grafana/setup-k6@0.3.0 
+        uses: grafana/setup-k6@0.2.0 
 
       - name: Run k6 tests
         run: npm run test
